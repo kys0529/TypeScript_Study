@@ -41,3 +41,45 @@ function constScope(): void {
     }
     // console.log(blockConst);  // 블록 밖에서는 접근 불가
 }
+
+// 📌 기본 타입
+// 1. 원시 타입 (Primitive Types)
+let age: number = 24;
+let message: string = "Hello. My name is Ari.";
+let isStudent: boolean = false;
+let empty: null = null;
+let notAssigned: undefined = undefined;
+
+// 2. 객체 타입 (Object Types)
+let numbers: number[] = [1, 2, 3, 4, 5];
+let names: Array<string> = ["Ari", "Sally"];
+let person: [string, number] = ["Ari", 24];
+enum Color {
+    Red,
+    Green,
+    Blue
+}
+let favoriteColor = Color.Red;
+
+// 3. 특수 타입
+let anything: any = 1;
+anything = "Hello";
+anything = true;
+
+let userInput: unknown = "Hello"; 
+userInput = 529;
+
+if (typeof(userInput) === "string") {
+    console.log(userInput.toUpperCase()); // unknown은 any와 달리 사용 전에 타입 체크 필요
+}
+
+function printMessage(message: string): void { // return이 없거나 return; 만 있는 함수에서 사용
+    console.log(message);
+}
+printMessage("안녕하세요? 반갑습니다. 제 이름은 Ari입니다.");
+
+function infiniteLoop(): never {
+    while (true) {
+        console.log("Continue...");
+    }
+}
