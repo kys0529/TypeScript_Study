@@ -78,8 +78,42 @@ function printMessage(message: string): void { // return이 없거나 return; �
 }
 printMessage("안녕하세요? 반갑습니다. 제 이름은 Ari입니다.");
 
-function infiniteLoop(): never {
+function infiniteLoop(): never { // 함수가 정상적으로 끝나지 않을 때 사용
     while (true) {
         console.log("Continue...");
     }
+}
+
+//  📌 유니온 타입과 인터섹션 타입
+// 1. 유니온 타입 (또는)
+type ID = string | number;
+
+let userID: ID = "abc-123";
+userID = 529;
+
+type Direction = "up" | "down" | "right" | "left";
+function move(direction: Direction) {
+    console.log(`${direction} 방향으로 이동`);
+}
+
+move("up");
+
+// 2. 인터섹션 타입 (그리고)
+type Person = {
+    name: string;
+    age: number;
+}
+
+type Employee = {
+    employId: string;
+    department: string;
+}
+
+type Staff = Person & Employee
+
+const staff: Staff = {
+    name: "Ari",
+    age: 24,
+    employId: "0915",
+    department: "QA Manager"
 }
