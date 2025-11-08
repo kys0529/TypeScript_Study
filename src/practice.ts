@@ -212,3 +212,78 @@ interface numberArray {
 
 let fruit: numberArray = ["사과", "바나나", "토마토"];
 console.log(fruit[0])
+
+// 📌 함수 선언식
+console.log(`2 + 3 = ${addFunc(1, 2)}`); // 호이스팅 O
+
+function addFunc(a: number, b: number): number {
+    return a + b;
+}
+
+// 📌 함수 표현식
+// let subtractResult = subtractFunc(5, 3); // 호이스팅 X
+
+let subtractFunc = function(a: number, b: number): number {
+    if (a > b) {
+        return a - b;
+    }
+    else {
+        return b - a;
+    }
+}
+
+console.log(`5 - 3 = ${subtractFunc(5, 3)}`);
+
+// 📌 화살표 함수
+let multiplyFunc = (a: number, b: number): number => a * b
+
+console.log(`2 * 3 = ${multiplyFunc(2, 3)}`);
+
+// 📌 콜백 함수
+function calculate(a: number, b: number, callback: (result: number) => void) {
+    let sum = a + b;
+
+    setTimeout(() => {
+        callback(sum);
+    }, 1000)
+}
+
+calculate(2, 3, (result) => console.log(`두 수의 합은 ${result}입니다.`))
+
+// 📌 제네릭 함수
+function getFirst<T>(arr: T[]): T {
+    console.log(`해당 배열의 첫 번째 값은 "${arr[0]}" 입니다.`);
+    return arr[0];
+} 
+
+let stringArray: string[] = ["안녕하세요", "반갑습니다", "또 만나요"];
+let numberArray: number[] = [1, 2, 3];
+getFirst(stringArray);
+getFirst(numberArray);
+
+// 📌 this 바인딩
+let person1: {name: string, hobbies: string[], printName(): void} = {
+    name: "강수",
+    hobbies: ["game", "exercise"],
+
+    printName() {
+        this.hobbies.forEach(function(hobby) {
+            console.log(this.name + "의 취미는 " + hobby); // 각자의 this를 가짐
+        })
+    }
+}
+
+person1.printName()
+
+let person2: {name: string, hobbies: string[], printName(): void} = {
+    name: "강수",
+    hobbies: ["game", "exercise"],
+
+    printName() {
+        this.hobbies.forEach((hobby) => {
+            console.log(this.name + "의 취미는 " + hobby); // 부모의 this 사용
+        })
+    }
+}
+
+person2.printName()
