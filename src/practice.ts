@@ -194,3 +194,21 @@ let product2: productType = {
         console.log(`해당 제품의 가격은 ${this.price}입니다.`);
     }
 }
+
+// 📌 인덱스 시그니처
+interface stringDictionary {
+    [key: string]: string
+}
+
+let myDictionary: stringDictionary = {
+    apple: "사과",
+    banana: "바나나",
+    tomato: "토마토"
+}
+
+interface numberArray {
+    [key: number]: string
+}
+
+let fruit: numberArray = ["사과", "바나나", "토마토"];
+console.log(fruit[0])
