@@ -145,7 +145,7 @@ let user2: UserInterface = {
     birthday: 529
 }
 
-interface productInterface {
+interface ProductInterface {
     name: string;
     tag: number;
     price: number;
@@ -153,7 +153,7 @@ interface productInterface {
     printPrice(): void;
 }
 
-let product: productInterface = {
+let product: ProductInterface = {
     name: "다이어트 도시락",
     tag: 12345,
     price: 5000,
@@ -177,7 +177,7 @@ let user3: UserType = {
     birthday: 529
 }
 
-type productType = {
+type ProductType = {
     name: string;
     tag: number;
     price: number;
@@ -185,7 +185,7 @@ type productType = {
     printPrice(): void;
 }
 
-let product2: productType = {
+let product2: ProductType = {
     name: "다이어트 도시락",
     tag: 12345,
     price: 5000,
@@ -287,3 +287,60 @@ let person2: {name: string, hobbies: string[], printName(): void} = {
 }
 
 person2.printName()
+
+// 📌 클래스
+class PersonClass {
+    public name: string;
+    public age: number;
+    private address: string;
+
+    constructor(name: string, age: number, address: string) {
+        this.name = name;
+        this.age = age;
+        this.address = address;
+    }
+
+    get getAddress(): string {
+        return this.address;
+    }
+
+    introduce(): void {
+        console.log(`안녕하세요. 제 이름은 ${this.name}이고, 나이는 ${this.age}살 입니다.`)
+    }
+}
+
+let person3 = new PersonClass('Ari', 24, '서울특별시');
+person3.introduce();
+
+// 📌 클래스 정적 멤버
+class StaticClass {
+    static PI: number = 3.14;
+
+    static printPI(): void {
+        console.log(`PI의 값은 ${this.PI}입니다.`)
+    }
+}
+
+StaticClass.printPI();
+
+// 📌 클래스 상속
+class Animal {
+    constructor(
+        public name: string,
+        public age: number
+    ) {}
+
+    makeSound(): void {
+        console.log("동물 소리");
+    }
+}
+
+class Dog extends Animal {
+    constructor(
+        name: string,
+        age: number,
+        public breed: string
+    ) {
+        super(name, age);
+    }
+}
