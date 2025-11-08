@@ -344,3 +344,71 @@ class Dog extends Animal {
         super(name, age);
     }
 }
+
+// 📌 비동기
+let users: string[] = ["강수", "Ari", "강", "수"]
+
+// 1. 콜백 함수
+//  ㄴ 가장 기본적인 비동기 처리 방법
+//  ㄴ 작업이 끝나면 "이 함수 실행해줘!"하고 미리 넘겨주는 것
+function fetchUserCallback(userID: number, callback: (user: string) => void) {
+    let user = users[userID]; // 사용자 정보를 가져오는 것
+
+    setTimeout(() => { // 사용자 정보를 가져온 뒤, 3초 뒤 콜백 함수 실행하는 것
+        callback(user);
+    }, 3000)
+}
+
+// 나는 userID가 0번인 사람을 찾고싶어, 찾았다면 이 함수를 실행해줘.
+// 즉, 나는 지금 userID가 0번인 user가 누군지 몰라. 그래서 찾아줘. 찾고 나면 해당 값으로 이 함수를 실행할 거야.
+fetchUserCallback(0, (user) => console.log(`콜백 결과 - 사용자 ID: 0, 사용자 이름: ${user}`));
+
+// 2. Promise
+//  ㄴ 콜백 지옥을 해결하기 위해 등장
+//  ㄴ "나중에 결과를 줄게!"라는 약속 객체
+//  ㄴ 성공하면 .then()으로, 실패하면 .catch()로 처리
+function fetchUserPromise(userID: number): Promise<string> {
+    let user = users[userID]; // 사용자 정보를 가져오는 것
+
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            if (user) {
+                resolve(user)
+            } else {
+                reject("잘못된 사용자 ID")
+            }
+        }, 3000)
+    })
+}
+
+fetchUserPromise(1)
+    .then((user) => {
+        console.log(`Promise 결과 - 사용자 ID: 1, 사용자 이름: ${user}`)
+    })
+    .catch((error) => {
+        console.log(`에러 발생: ${error}`)
+    });
+
+// 3. async, await
+//  ㄴ Promise를 더 읽기 쉽게 만든 문법
+//  ㄴ 비동기 코드를 동기 코드처럼 작성 가능
+//  ㄴ async: 함수 앞에 붙여서, "이 함수는 비동기야" 라고 선언
+//  ㄴ await: Promise가 완료될 때까지 기다림
+async function fetchUser() {
+    try {
+        let user0 = await fetchUserPromise(0);
+        console.log(`사용자 ID: 0, 사용자 이름: ${user0}`)
+
+        let user1 = await fetchUserPromise(1);
+        console.log(`사용자 ID: 1, 사용자 이름: ${user1}`)
+
+        // 여러 Promise를 동시에 실행
+        let [user2, user3] = await Promise.all([fetchUserPromise(2), fetchUserPromise(3)]);
+        console.log(`동시 실행 결과\n사용자 ID: 2, 사용자 이름: ${user2}\n사용자 ID: 3, 사용자 이름: ${user3}`)
+    }
+    catch (error) {
+        console.log(`에러 발생: ${error}`)
+    }
+}
+
+fetchUser();
