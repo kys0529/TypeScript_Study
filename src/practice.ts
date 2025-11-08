@@ -117,3 +117,80 @@ const staff: Staff = {
     employId: "0915",
     department: "QA Manager"
 }
+
+// 📌 객체 리터럴 (즉, 클래스를 통한 객체 생성이 아닌, 중괄호를 사용해 직접 정의하는 객체 표현 방식)
+let user: {name: string, age: number, skill?: string, readonly birthday: number} = {
+    name: "Ari",
+    age: 24,
+    birthday: 529
+};
+
+function printUser(user: {name: string, age: number, skill?: string, readonly birthday: number}) {
+    console.log(`${user.name}, ${user.age}`);
+}
+
+printUser(user);
+
+// 📌 인터페이스
+interface UserInterface {
+    name: string;
+    age: number;
+    skill?: string;
+    readonly birthday: number
+}
+
+let user2: UserInterface = {
+    name: "Ari2",
+    age: 24,
+    birthday: 529
+}
+
+interface productInterface {
+    name: string;
+    tag: number;
+    price: number;
+
+    printPrice(): void;
+}
+
+let product: productInterface = {
+    name: "다이어트 도시락",
+    tag: 12345,
+    price: 5000,
+
+    printPrice(): void {
+        console.log(`해당 제품의 가격은 ${this.price}입니다.`);
+    }
+}
+
+// 📌 타입 별칭
+type UserType = {
+    name: string;
+    age: number;
+    skill?: string;
+    readonly birthday: number
+}
+
+let user3: UserType = {
+    name: "Ari3",
+    age: 24,
+    birthday: 529
+}
+
+type productType = {
+    name: string;
+    tag: number;
+    price: number;
+
+    printPrice(): void;
+}
+
+let product2: productType = {
+    name: "다이어트 도시락",
+    tag: 12345,
+    price: 5000,
+
+    printPrice(): void {
+        console.log(`해당 제품의 가격은 ${this.price}입니다.`);
+    }
+}
